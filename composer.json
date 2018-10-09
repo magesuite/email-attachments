@@ -1,0 +1,19 @@
+{
+  "name": "creativestyle/magesuite-email-attachments",
+  "description": "This extension adds PDF attachments in order confirmation mail.",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+    "OSL-3.0"
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "magento/framework": "^101.0.0"
+  },
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "MageSuite\\EmailAttachments\\": ""
+    }
+  }
+}
