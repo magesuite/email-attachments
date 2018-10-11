@@ -18,6 +18,7 @@ class TransportBuilder
                     $fileName ? basename($fileName) : basename($filePath)
                 );
         }
+
         return $this;
     }
 }

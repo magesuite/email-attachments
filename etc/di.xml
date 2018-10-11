@@ -5,6 +5,6 @@
                 type="MageSuite\EmailAttachments\Mail\Template\TransportBuilder" />
 
     <type name="MageSuite\EmailAttachments\Mail\Template\TransportBuilder">
-        <plugin name="sender-builder-add-attachments" type="MageSuite\EmailAttachments\Plugin\TransportBuilderAddAttachments"/>
+        <plugin name="sender-builder-add-attachments" type="MageSuite\EmailAttachments\Plugin\Mail\Template\TransportBuilder\AddAttachments"/>
     </type>
 </config>
