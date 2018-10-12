@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="sales_email">
+            <group id="attachments" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>New Order Confirmation Email Attachments</label>
+                <field id="attachment_first" translate="label comment" type="file" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>First attachment</label>
+                    <backend_model>MageSuite\EmailAttachments\Model\Config\Backend\EmailAttachment</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sales/store/order/attachments</upload_dir>
+                    <base_url type="media" scope_info="1">sales/store/order/attachments</base_url>
+                    <comment>
+                        <![CDATA[Only pdf, doc, docx, odt files format is allowed.]]>
+                    </comment>
+                </field>
+                <field id="attachment_second" translate="label comment" type="file" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Second attachment</label>
+                    <backend_model>MageSuite\EmailAttachments\Model\Config\Backend\EmailAttachment</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sales/store/order/attachments</upload_dir>
+                    <base_url type="media" scope_info="1">sales/store/order/attachments</base_url>
+                    <comment>
+                        <![CDATA[Only pdf, doc, docx, odt files format is allowed.]]>
+                    </comment>
+                </field>
+                <field id="attachment_third" translate="label comment" type="file" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Third attachment</label>
+                    <backend_model>MageSuite\EmailAttachments\Model\Config\Backend\EmailAttachment</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">sales/store/order/attachments</upload_dir>
+                    <base_url type="media" scope_info="1">sales/store/order/attachments</base_url>
+                    <comment>
+                        <![CDATA[Only pdf, doc, docx, odt files format is allowed.]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
