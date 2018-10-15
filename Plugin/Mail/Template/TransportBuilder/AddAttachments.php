@@ -23,6 +23,11 @@ class AddAttachments
         'sales_email/attachments/attachment_third'
     ];
 
+    const TEMPLATE_IDENTIFIERS = [
+        'sales_email_order_guest_template',
+        'sales_email_order_template'
+    ];
+
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Filesystem $filesystem
@@ -34,7 +39,7 @@ class AddAttachments
 
     public function beforeSetTemplateIdentifier(\MageSuite\EmailAttachments\Mail\Template\TransportBuilder $subject, $templateIdentifier)
     {
-        if ($templateIdentifier == 'sales_email_order_template') {
+        if (in_array($templateIdentifier, self::TEMPLATE_IDENTIFIERS)) {
             foreach(self::ATTACHMENTS as $attachmentsPath) {
                 $attachment = $this->getAttachment($attachmentsPath);
                 $subject->addAttachmentByFilePath($attachment);
