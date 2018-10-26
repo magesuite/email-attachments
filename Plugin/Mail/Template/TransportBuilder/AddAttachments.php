@@ -36,26 +36,26 @@ class AddAttachments
         $this->scopeConfig = $scopeConfig;
         $this->mediaDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
     }
-
-    public function beforeSetTemplateIdentifier(\MageSuite\EmailAttachments\Mail\Template\TransportBuilder $subject, $templateIdentifier)
+    
+    public function beforeSetTemplateIdentifier(\Magento\Framework\Mail\Template\TransportBuilder $subject, $templateIdentifier)
     {
         if (in_array($templateIdentifier, self::TEMPLATE_IDENTIFIERS)) {
-            foreach(self::ATTACHMENTS as $attachmentsPath) {
-                $attachment = $this->getAttachment($attachmentsPath);
-                $subject->addAttachmentByFilePath($attachment);
+            foreach(self::ATTACHMENTS as $attachment) {
+                $attachmentPath = $this->getAttachmentPath($attachment);
+                $subject->addAttachmentByFilePath($message, $attachmentPath);
             }
         }
 
         return [$templateIdentifier];
     }
 
-    private function getAttachment($path)
+    private function getAttachmentPath($attachment)
     {
         $path = $this->scopeConfig->getValue(
-            $path, \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            $attachment, \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
 
-        return $this->mediaDirectory->getAbsolutePath(self::ATTACHMENT_PATH . $path);
+        return $path ? $this->mediaDirectory->getAbsolutePath(self::ATTACHMENT_PATH . $path) : '';
     }
 
 }
