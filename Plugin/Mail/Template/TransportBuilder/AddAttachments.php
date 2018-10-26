@@ -37,12 +37,12 @@ class AddAttachments
         $this->mediaDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
     }
     
-    public function beforeSetTemplateIdentifier(\Magento\Framework\Mail\Template\TransportBuilder $subject, $templateIdentifier)
+    public function beforeSetTemplateIdentifier(\MageSuite\EmailAttachments\Mail\Template\TransportBuilder $subject, $templateIdentifier)
     {
         if (in_array($templateIdentifier, self::TEMPLATE_IDENTIFIERS)) {
             foreach(self::ATTACHMENTS as $attachment) {
                 $attachmentPath = $this->getAttachmentPath($attachment);
-                $subject->addAttachmentByFilePath($message, $attachmentPath);
+                $subject->addAttachmentByFilePath($attachmentPath);
             }
         }
 
