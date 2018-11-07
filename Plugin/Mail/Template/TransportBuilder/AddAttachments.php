@@ -17,6 +17,11 @@ class AddAttachments
      */
     protected $mediaDirectory;
 
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
     const ATTACHMENTS = [
         'sales_email/attachments/attachment_first',
         'sales_email/attachments/attachment_second',
@@ -30,18 +35,24 @@ class AddAttachments
 
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\Filesystem $filesystem
+        \Magento\Framework\Filesystem $filesystem,
+        \Psr\Log\LoggerInterface $logger
     )
     {
         $this->scopeConfig = $scopeConfig;
+        $this->logger = $logger;
         $this->mediaDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
     }
     
     public function beforeSetTemplateIdentifier(\MageSuite\EmailAttachments\Mail\Template\TransportBuilder $subject, $templateIdentifier)
     {
+        $this->logger->log(\Psr\Log\LogLevel::NOTICE, $templateIdentifier, ['EmailAttachments', 'templateIdentifier']);
+
         if (in_array($templateIdentifier, self::TEMPLATE_IDENTIFIERS)) {
             foreach(self::ATTACHMENTS as $attachment) {
                 $attachmentPath = $this->getAttachmentPath($attachment);
+                $this->logger->log(\Psr\Log\LogLevel::NOTICE, $attachmentPath, ['EmailAttachments', 'attachmentPath']);
+                $this->logger->log(\Psr\Log\LogLevel::NOTICE, !empty($attachmentPath) && file_exists($attachmentPath) ? 1 : 0, ['EmailAttachments', 'check']);
                 $subject->addAttachmentByFilePath($attachmentPath);
             }
         }
@@ -57,5 +68,4 @@ class AddAttachments
 
         return $path ? $this->mediaDirectory->getAbsolutePath(self::ATTACHMENT_PATH . $path) : '';
     }
-
 }
