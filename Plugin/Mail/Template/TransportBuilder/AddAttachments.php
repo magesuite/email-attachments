@@ -60,9 +60,9 @@ class AddAttachments
 
     private function getTemplateIdentifiers() {
         $templateIdentifiers = [];
-        foreach (self::TEMPLATE_IDENTIFIERS as $ti) {
+        foreach (self::TEMPLATE_IDENTIFIERS as $templateIdentifier) {
             $templateIdentifiers[] = $this->scopeConfig->getValue(
-                $ti, \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+                $templateIdentifier, \Magento\Store\Model\ScopeInterface::SCOPE_STORE
             );
         }
 
