@@ -7,6 +7,17 @@ class AddAttachments
 {
     const ATTACHMENT_PATH = '/sales/store/order/attachments/';
 
+    const TEMPLATE_IDENTIFIERS = [
+        'sales_email/order/guest_template',
+        'sales_email/order/template'
+    ];
+
+    const ATTACHMENTS = [
+        'sales_email/attachments/attachment_first',
+        'sales_email/attachments/attachment_second',
+        'sales_email/attachments/attachment_third'
+    ];
+
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
@@ -17,42 +28,20 @@ class AddAttachments
      */
     protected $mediaDirectory;
 
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
-
-    const ATTACHMENTS = [
-        'sales_email/attachments/attachment_first',
-        'sales_email/attachments/attachment_second',
-        'sales_email/attachments/attachment_third'
-    ];
-
-    const TEMPLATE_IDENTIFIERS = [
-        'sales_email_order_guest_template',
-        'sales_email_order_template'
-    ];
-
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\Filesystem $filesystem,
-        \Psr\Log\LoggerInterface $logger
+        \Magento\Framework\Filesystem $filesystem
     )
     {
         $this->scopeConfig = $scopeConfig;
-        $this->logger = $logger;
         $this->mediaDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
     }
-    
+
     public function beforeSetTemplateIdentifier(\MageSuite\EmailAttachments\Mail\Template\TransportBuilder $subject, $templateIdentifier)
     {
-        $this->logger->log(\Psr\Log\LogLevel::NOTICE, $templateIdentifier, ['EmailAttachments', 'templateIdentifier']);
-
-        if (in_array($templateIdentifier, self::TEMPLATE_IDENTIFIERS)) {
+        if (in_array($templateIdentifier, $this->getTemplateIdentifiers())) {
             foreach(self::ATTACHMENTS as $attachment) {
                 $attachmentPath = $this->getAttachmentPath($attachment);
-                $this->logger->log(\Psr\Log\LogLevel::NOTICE, $attachmentPath, ['EmailAttachments', 'attachmentPath']);
-                $this->logger->log(\Psr\Log\LogLevel::NOTICE, !empty($attachmentPath) && file_exists($attachmentPath) ? 1 : 0, ['EmailAttachments', 'check']);
                 $subject->addAttachmentByFilePath($attachmentPath);
             }
         }
@@ -67,5 +56,16 @@ class AddAttachments
         );
 
         return $path ? $this->mediaDirectory->getAbsolutePath(self::ATTACHMENT_PATH . $path) : '';
+    }
+
+    private function getTemplateIdentifiers() {
+        $templateIdentifiers = [];
+        foreach (self::TEMPLATE_IDENTIFIERS as $templateIdentifier) {
+            $templateIdentifiers[] = $this->scopeConfig->getValue(
+                $templateIdentifier, \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            );
+        }
+
+        return $templateIdentifiers;
     }
 }
