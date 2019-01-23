@@ -42,7 +42,7 @@ class AddAttachments
         if (in_array($templateIdentifier, $this->getTemplateIdentifiers())) {
             foreach(self::ATTACHMENTS as $attachment) {
                 $attachmentPath = $this->getAttachmentPath($attachment);
-                $subject->addAttachmentByFilePath($attachmentPath);
+                $subject->addAttachment($attachmentPath);
             }
         }
 
