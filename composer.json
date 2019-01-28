@@ -6,7 +6,8 @@
     "OSL-3.0"
   ],
   "require": {
-    "php": ">=5.5.0"
+    "php": ">=5.5.0",
+    "magento/product-community-edition": "^2.3.0"
   },
   "autoload": {
     "files": [ "registration.php" ],
