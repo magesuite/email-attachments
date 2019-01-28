@@ -2,11 +2,6 @@
 
 namespace MageSuite\EmailAttachments\Mail;
 
-use Zend\Mime\Mime;
-use Zend\Mime\PartFactory;
-use Zend\Mail\MessageFactory as MailMessageFactory;
-use Zend\Mime\MessageFactory as MimeMessageFactory;
-
 class Message implements \Magento\Framework\Mail\MailMessageInterface
 {
     /**
@@ -36,11 +31,15 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
      * @param \Zend\Mime\MessageFactory $mimeMessageFactory
      * @param string $charset
      */
-    public function __construct(PartFactory $partFactory, MimeMessageFactory $mimeMessageFactory, $charset = 'utf-8')
+    public function __construct(
+        \Zend\Mime\PartFactory $partFactory,
+        \Zend\Mime\MessageFactory $mimeMessageFactory,
+        $charset = 'utf-8'
+    )
     {
         $this->partFactory = $partFactory;
         $this->mimeMessageFactory = $mimeMessageFactory;
-        $this->zendMessage = MailMessageFactory::getInstance();
+        $this->zendMessage = \Zend\Mail\MessageFactory::getInstance();
         $this->zendMessage->setEncoding($charset);
     }
 
@@ -156,7 +155,7 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
     {
         $htmlPart = $this->partFactory->create();
         $htmlPart->setContent($content)
-            ->setType(Mime::TYPE_HTML)
+            ->setType(\Zend\Mime\Mime::TYPE_HTML)
             ->setCharset($this->zendMessage->getEncoding());
         $this->parts[] = $htmlPart;
         return $this;
@@ -172,7 +171,7 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
     {
         $textPart = $this->partFactory->create();
         $textPart->setContent($content)
-            ->setType(Mime::TYPE_TEXT)
+            ->setType(\Zend\Mime\Mime::TYPE_TEXT)
             ->setCharset($this->zendMessage->getEncoding());
         $this->parts[] = $textPart;
         return $this;
@@ -192,8 +191,8 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
         $attachmentPart->setContent($content)
             ->setType($fileType)
             ->setFileName($fileName)
-            ->setEncoding(Mime::ENCODING_BASE64)
-            ->setDisposition(Mime::DISPOSITION_ATTACHMENT);
+            ->setEncoding(\Zend\Mime\Mime::ENCODING_BASE64)
+            ->setDisposition(\Zend\Mime\Mime::DISPOSITION_ATTACHMENT);
         $this->parts[] = $attachmentPart;
         return $this;
     }
