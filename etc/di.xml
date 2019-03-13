@@ -4,6 +4,9 @@
     <preference for="Magento\Framework\Mail\Template\TransportBuilder"
                 type="MageSuite\EmailAttachments\Mail\Template\TransportBuilder" />
 
+    <preference for="Magento\Newsletter\Model\Queue\TransportBuilder"
+                type="MageSuite\EmailAttachments\Model\Queue\NewsletterTransportBuilder" />
+
     <preference for="Magento\Framework\Mail\Message"
                 type="MageSuite\EmailAttachments\Mail\Message" />
 
