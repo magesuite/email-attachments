@@ -81,6 +81,7 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
         }
 
         if(!$this->hasAttachment()){
+            $this->parts = [];
             $this->zendMessage->setBody($body);
         }
 
@@ -239,9 +240,11 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
      */
     public function setPartsToBody()
     {
-        $mimeMessage = $this->mimeMessageFactory->create();
-        $mimeMessage->setParts($this->parts);
-        $this->zendMessage->setBody($mimeMessage);
+        if ($this->hasAttachment()) {
+            $mimeMessage = $this->mimeMessageFactory->create();
+            $mimeMessage->setParts($this->parts);
+            $this->zendMessage->setBody($mimeMessage);
+        }
         return $this;
     }
 
