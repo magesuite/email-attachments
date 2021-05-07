@@ -438,6 +438,11 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
         return $this;
     }
 
+    public function getTemplateIdentifier()
+    {
+        return $this->templateIdentifier;
+    }
+
     /**
      * Handles possible incoming types of email (string or array)
      *
