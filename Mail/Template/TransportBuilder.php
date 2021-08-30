@@ -419,21 +419,42 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
 
     public function addAttachment($filePath)
     {
-        if (!empty($filePath) && file_exists($filePath)) {
-            $fileName = basename($filePath);
-            $fileType = mime_content_type($filePath) ?: \Zend\Mime\Mime::TYPE_OCTETSTREAM;
-            $fileContent = file_get_contents($filePath);
-
-            $attachmentPart = $this->mimePartInterfaceFactory->create([
-                'content' => $fileContent,
-                'type' => $fileType,
-                'fileName' => $fileName,
-                'disposition' => \Zend\Mime\Mime::DISPOSITION_ATTACHMENT,
-                'encoding' => \Zend\Mime\Mime::ENCODING_BASE64
-            ]);
-
-            $this->attachments[] = $attachmentPart;
+        if (empty($filePath) || !file_exists($filePath)) {
+            return $this;
         }
+
+        $fileName = basename($filePath);
+        $fileType = mime_content_type($filePath) ?: \Zend\Mime\Mime::TYPE_OCTETSTREAM;
+        $fileContent = file_get_contents($filePath);
+
+        $attachmentPart = $this->mimePartInterfaceFactory->create([
+            'content' => $fileContent,
+            'type' => $fileType,
+            'fileName' => $fileName,
+            'disposition' => \Zend\Mime\Mime::DISPOSITION_ATTACHMENT,
+            'encoding' => \Zend\Mime\Mime::ENCODING_BASE64
+        ]);
+
+        $this->attachments[] = $attachmentPart;
+
+        return $this;
+    }
+
+    public function addAttachmentFromContent($content, $fileName, $fileType)
+    {
+        if (empty($content) || empty($fileName) || empty($fileType)) {
+            return $this;
+        }
+
+        $attachmentPart = $this->mimePartInterfaceFactory->create([
+            'content' => $content,
+            'type' => $fileType,
+            'fileName' => $fileName,
+            'disposition' => \Zend\Mime\Mime::DISPOSITION_ATTACHMENT,
+            'encoding' => \Zend\Mime\Mime::ENCODING_BASE64
+        ]);
+
+        $this->attachments[] = $attachmentPart;
 
         return $this;
     }
