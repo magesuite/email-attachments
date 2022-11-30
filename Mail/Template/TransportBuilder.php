@@ -1,4 +1,8 @@
 <?php
+// phpcs:disable Standard.Classes.RequireFullPath
+// phpcs:disable Standard.Classes.PrivateConstructParameters
+// phpcs:disable Standard.Plugins.UnderscorePrefix
+// phpcs:disable Magento2.Functions.DiscouragedFunction
 
 namespace MageSuite\EmailAttachments\Mail\Template;
 
@@ -163,8 +167,7 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
         MimeMessageInterfaceFactory $mimeMessageInterfaceFactory = null,
         MimePartInterfaceFactory $mimePartInterfaceFactory = null,
         AddressConverter $addressConverter = null
-    )
-    {
+    ) {
         $this->templateFactory = $templateFactory;
         $this->objectManager = $objectManager;
         $this->_senderResolver = $senderResolver;
@@ -489,4 +492,3 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
         }
     }
 }
-
