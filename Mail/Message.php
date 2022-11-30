@@ -4,25 +4,13 @@ namespace MageSuite\EmailAttachments\Mail;
 
 class Message implements \Magento\Framework\Mail\MailMessageInterface
 {
-    /**
-     * @var \Laminas\Mime\PartFactory
-     */
-    protected $partFactory;
+    protected \Laminas\Mime\PartFactory $partFactory;
 
-    /**
-     * @var \Laminas\Mime\MessageFactory
-     */
-    protected $mimeMessageFactory;
+    protected \Laminas\Mime\MessageFactory $mimeMessageFactory;
 
-    /**
-     * @var \Laminas\Mail\Message
-     */
-    protected $zendMessage;
+    protected \Laminas\Mail\Message $zendMessage;
 
-    /**
-     * @var \Laminas\Mime\Part[]
-     */
-    protected $parts = [];
+    protected array $parts = [];
 
     public function __construct(
         \Laminas\Mime\PartFactory $partFactory,

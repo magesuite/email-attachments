@@ -3,7 +3,7 @@
         <changelog>
             <tag version="3.0.0" date="2020-01-07">
                 <entry>
-                    <type>FEATURE</type>
+                    <type>INIT</type>
                     <overview>Support for Magento 2.3.3</overview>
                 </entry>
             </tag>
