@@ -4,10 +4,7 @@ namespace MageSuite\EmailAttachments\Model\Config\Backend;
 
 class EmailAttachment extends \Magento\Config\Model\Config\Backend\File
 {
-    /**
-     * @return string[]
-     */
-    protected function _getAllowedExtensions()
+    protected function _getAllowedExtensions(): array
     {
         return ['pdf', 'doc', 'docx', 'odt'];
     }

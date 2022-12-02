@@ -4,42 +4,22 @@ namespace MageSuite\EmailAttachments\Mail;
 
 class Message implements \Magento\Framework\Mail\MailMessageInterface
 {
-    /**
-     * @var \Zend\Mime\PartFactory
-     */
-    protected $partFactory;
+    protected \Laminas\Mime\PartFactory $partFactory;
 
-    /**
-     * @var \Zend\Mime\MessageFactory
-     */
-    protected $mimeMessageFactory;
+    protected \Laminas\Mime\MessageFactory $mimeMessageFactory;
 
-    /**
-     * @var \Zend\Mail\Message
-     */
-    private $zendMessage;
+    protected \Laminas\Mail\Message $zendMessage;
 
-    /**
-     * @var \Zend\Mime\Part[]
-     */
-    protected $parts = [];
+    protected array $parts = [];
 
-    /**
-     * Message constructor.
-     *
-     * @param \Zend\Mime\PartFactory $partFactory
-     * @param \Zend\Mime\MessageFactory $mimeMessageFactory
-     * @param string $charset
-     */
     public function __construct(
-        \Zend\Mime\PartFactory $partFactory,
-        \Zend\Mime\MessageFactory $mimeMessageFactory,
+        \Laminas\Mime\PartFactory $partFactory,
+        \Laminas\Mime\MessageFactory $mimeMessageFactory,
         $charset = 'utf-8'
-    )
-    {
+    ) {
         $this->partFactory = $partFactory;
         $this->mimeMessageFactory = $mimeMessageFactory;
-        $this->zendMessage = \Zend\Mail\MessageFactory::getInstance();
+        $this->zendMessage = \Laminas\Mail\MessageFactory::getInstance();
         $this->zendMessage->setEncoding($charset);
     }
 
@@ -164,7 +144,7 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
     {
         $htmlPart = $this->partFactory->create();
         $htmlPart->setContent($content)
-            ->setType(\Zend\Mime\Mime::TYPE_HTML)
+            ->setType(\Laminas\Mime\Mime::TYPE_HTML)
             ->setCharset($this->zendMessage->getEncoding());
         $this->parts[] = $htmlPart;
         return $this;
@@ -180,7 +160,7 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
     {
         $textPart = $this->partFactory->create();
         $textPart->setContent($content)
-            ->setType(\Zend\Mime\Mime::TYPE_TEXT)
+            ->setType(\Laminas\Mime\Mime::TYPE_TEXT)
             ->setCharset($this->zendMessage->getEncoding());
         $this->parts[] = $textPart;
         return $this;
@@ -200,17 +180,12 @@ class Message implements \Magento\Framework\Mail\MailMessageInterface
         $attachmentPart->setContent($content)
             ->setType($fileType)
             ->setFileName($fileName)
-            ->setEncoding(\Zend\Mime\Mime::ENCODING_BASE64)
-            ->setDisposition(\Zend\Mime\Mime::DISPOSITION_ATTACHMENT);
+            ->setEncoding(\Laminas\Mime\Mime::ENCODING_BASE64)
+            ->setDisposition(\Laminas\Mime\Mime::DISPOSITION_ATTACHMENT);
         $this->parts[] = $attachmentPart;
         return $this;
     }
 
-    /**
-     * Set parts to Zend message body.
-     *
-     * @return $this
-     */
     public function setPartsToBody()
     {
         $mimeMessage = $this->mimeMessageFactory->create();

@@ -4,10 +4,7 @@ namespace MageSuite\EmailAttachments\Model;
 
 class AttachmentList implements AttachmentListInterface
 {
-    /**
-     * @var string[]
-     */
-    protected $attachments;
+    protected array $attachments = [];
 
     public function __construct(array $attachments = [])
     {

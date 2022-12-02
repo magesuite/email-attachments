@@ -1,0 +1,18 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:MageSuite_Changelog:etc/changelog.xsd">
+    <module id="MageSuite_EmailAttachments" name="MageSuite_EmailAttachments">
+        <changelog>
+            <tag version="3.0.0" date="2020-01-07">
+                <entry>
+                    <type>INIT</type>
+                    <overview>Support for Magento 2.3.3</overview>
+                </entry>
+            </tag>
+            <tag version="3.0.5" date="2022-11-24">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Changed Zend classes to Laminas in contructor</overview>
+                </entry>
+            </tag>
+        </changelog>
+    </module>
+</config>

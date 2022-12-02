@@ -1,13 +1,8 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magento\Framework\Mail\Template\TransportBuilder"
-                type="MageSuite\EmailAttachments\Mail\Template\TransportBuilder" />
-
-    <preference for="Magento\Newsletter\Model\Queue\TransportBuilder"
-                type="MageSuite\EmailAttachments\Model\Queue\NewsletterTransportBuilder" />
-
-    <preference for="Magento\Framework\Mail\Message"
-                type="MageSuite\EmailAttachments\Mail\Message" />
+    <preference for="Magento\Framework\Mail\Template\TransportBuilder" type="MageSuite\EmailAttachments\Mail\Template\TransportBuilder" />
+    <preference for="Magento\Newsletter\Model\Queue\TransportBuilder" type="MageSuite\EmailAttachments\Model\Queue\NewsletterTransportBuilder" />
+    <preference for="Magento\Framework\Mail\Message" type="MageSuite\EmailAttachments\Mail\Message" />
 
     <type name="MageSuite\EmailAttachments\Mail\Template\TransportBuilder">
         <plugin name="sender-builder-add-attachments" type="MageSuite\EmailAttachments\Plugin\Mail\Template\TransportBuilder\AddAttachments"/>

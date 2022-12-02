@@ -4,5 +4,5 @@ namespace MageSuite\EmailAttachments\Model;
 
 interface AttachmentListInterface
 {
-    public function getAttachments();
+    public function getAttachments(): array;
 }

@@ -2,25 +2,15 @@
 
 namespace MageSuite\EmailAttachments\Plugin\Mail\Template\TransportBuilder;
 
-
 class AddAttachments
 {
     const ATTACHMENT_PATH = '/sales/store/order/attachments/';
 
-    /**
-     * @var \MageSuite\EmailAttachments\Model\AttachmentList
-     */
-    protected $attachmentList;
+    protected \MageSuite\EmailAttachments\Model\AttachmentList $attachmentList;
 
-    /**
-     * @var \MageSuite\EmailAttachments\Helper\Configuration
-     */
-    protected $configuration;
+    protected \MageSuite\EmailAttachments\Helper\Configuration $configuration;
 
-    /**
-     * @var \Magento\Framework\Filesystem\Directory\WriteInterface
-     */
-    protected $mediaDirectory;
+    protected \Magento\Framework\Filesystem\Directory\WriteInterface $mediaDirectory;
 
     public function __construct(
         \MageSuite\EmailAttachments\Model\AttachmentList $attachmentList,
@@ -32,19 +22,15 @@ class AddAttachments
         $this->mediaDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
     }
 
-    public function afterSetTemplateOptions(
-        \MageSuite\EmailAttachments\Mail\Template\TransportBuilder $subject,
-        $result,
-        $templateOptions
-    ) {
+    public function afterSetTemplateOptions(\MageSuite\EmailAttachments\Mail\Template\TransportBuilder $subject, $result, $templateOptions)
+    {
         $storeId = $templateOptions['store'] ?? null;
 
-        if (!$subject->getTemplateIdentifier()
-            || !in_array($subject->getTemplateIdentifier(), $this->configuration->getTemplateIdentifiers($storeId))) {
+        if (!$subject->getTemplateIdentifier() || !in_array($subject->getTemplateIdentifier(), $this->configuration->getTemplateIdentifiers($storeId))) {
             return $result;
         }
 
-        foreach($this->attachmentList->getAttachments() as $attachment) {
+        foreach ($this->attachmentList->getAttachments() as $attachment) {
             $attachmentFileName = $this->configuration->getAttachment($attachment, $storeId);
 
             if (empty($attachmentFileName)) {
