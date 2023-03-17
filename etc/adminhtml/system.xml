@@ -24,6 +24,7 @@
                     <upload_dir config="system/filesystem/media" scope_info="1">sales/store/order/attachments</upload_dir>
                     <base_url type="media" scope_info="1">sales/store/order/attachments</base_url>
                     <comment><![CDATA[Only pdf, doc, docx, odt files format is allowed.]]></comment>
+                    <frontend_class>cs-csfeature__logo</frontend_class>
                 </field>
             </group>
         </section>
