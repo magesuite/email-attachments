@@ -17,7 +17,7 @@ class NewsletterTransportBuilder extends \Magento\Newsletter\Model\Queue\Transpo
         )->setSubject(
             $template->getSubject()
         );
-        
+
         $this->message->setPartsToBody();
 
         return $this;
