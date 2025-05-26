@@ -7,9 +7,7 @@ class AddAttachments
     const ATTACHMENT_PATH = '/sales/store/order/attachments/';
 
     protected \MageSuite\EmailAttachments\Model\AttachmentList $attachmentList;
-
     protected \MageSuite\EmailAttachments\Helper\Configuration $configuration;
-
     protected \Magento\Framework\Filesystem\Directory\WriteInterface $mediaDirectory;
 
     public function __construct(
