@@ -489,6 +489,8 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
                 $this->messageData[$addressType],
                 $convertedAddressArray
             );
+        } else {
+            $this->messageData[$addressType] = $convertedAddressArray;
         }
     }
 }
