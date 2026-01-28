@@ -22,6 +22,9 @@ use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Phrase;
 use Magento\Framework\Mail\Template\{FactoryInterface, SenderResolverInterface};
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
 {
     private $messageData = [];
@@ -178,6 +181,25 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
 
         $attachmentPart = $this->mimePartInterfaceFactory->create([
             'content' => $fileContent,
+            'type' => $fileType,
+            'fileName' => $fileName,
+            'disposition' => \Magento\Framework\HTTP\Mime::DISPOSITION_ATTACHMENT,
+            'encoding' => \Magento\Framework\HTTP\Mime::ENCODING_BASE64
+        ]);
+
+        $this->attachments[] = $attachmentPart;
+
+        return $this;
+    }
+
+    public function addAttachmentFromContent(?string $content, ?string $fileName, ?string $fileType): self
+    {
+        if (empty($content) || empty($fileName) || empty($fileType)) {
+            return $this;
+        }
+
+        $attachmentPart = $this->mimePartInterfaceFactory->create([
+            'content' => $content,
             'type' => $fileType,
             'fileName' => $fileName,
             'disposition' => \Magento\Framework\HTTP\Mime::DISPOSITION_ATTACHMENT,
