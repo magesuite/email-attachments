@@ -13,7 +13,7 @@
                     <overview>Changed Zend classes to Laminas in contructor</overview>
                 </entry>
             </tag>
-            <tag version="3.0.6" date="2023-05-20">
+            <tag version="3.0.6" date="2023-03-20">
                 <entry>
                     <type>FEAT</type>
                     <overview>Add missing MGS-icon</overview>
