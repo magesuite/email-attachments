@@ -18,7 +18,7 @@ class TransportBuilderTest extends \PHPUnit\Framework\TestCase
         parent::setUp();
 
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
-        $this->transportBuilder = $this->objectManager->get(\MageSuite\EmailAttachments\Mail\Template\TransportBuilder::class);
+        $this->transportBuilder = $this->objectManager->create(\MageSuite\EmailAttachments\Mail\Template\TransportBuilder::class);
         $this->template = $this->objectManager->get(\Magento\Email\Model\Template::class);
     }
 
